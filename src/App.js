@@ -27,8 +27,9 @@ class App extends Component {
             type='text'
             ref={(input) => { this.textInput = input; }}
             onChange={this.onChange}
+            value={this.state.number}
           />
-          元 与 角
+          元 = {this.state.number * 10} 角
         </h3>
         <div>
           <Yuan number={this.state.number}/>
