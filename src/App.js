@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <h3>
-          元角
+          元 与 角
         </h3>
         <div>
           <Yuan />
