@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Yuan from './components/presentaion/yuan'
+import Jiao from './components/presentaion/jiao'
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <h3>
+          元角
+        </h3>
+        <div>
+          <Yuan />
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div>
+          {
+            [1,2,3,4,5,6,7,8,9,10,11,12].map((val, idx) => {
+              return val % 6 === 0 ? <br/> : <Jiao />
+            })
+          }
+        </div>
       </div>
     );
   }
