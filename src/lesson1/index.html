@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Math In HTML</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        h1,h2,h3,h4,h5,h6 {
+            display: inline-block;
+        }
+        header {
+            line-height: 48px;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            border-bottom: 1px solid #e2e2e2;
+        }
+        input {
+            border: none;
+            outline: none;
+        }
+        /* formula */
+        .formula .multiplication {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .formula .multiplication input {
+            width: 50px;
+            border-bottom: 1px solid #e2e2e2;
+            text-align: center;
+            font-size: 24px;
+        }
+        .formula .multiplication span {
+            width: 50px;
+            text-align: center;
+            font-size: 24px;
+        }
+        #m_result {
+            margin-left: 5px;
+        }
+        /* result */
+        .result .row {
+            display: block;
+            text-align: center;
+        }
+        .result .dot {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: red;
+            margin-right: 10px;
+            animation-name: show;
+            animation-timing-function: linear;
+        }
+        /* animation */
+        @keyframes show {
+            from {
+                opacity: 0
+            }
+            to {
+                opacity: 1
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    Math In HTML
+</header>
+<div class="playground">
+    <div class="formula">
+        <div class="multiplication">
+            <h4>公式:</h4>
+                <input type="text" name="" id="operandA" value="10">
+                <span>X</span>
+                <input type="text" name="" id="operandB" value="10">
+                <span>=</span>
+                <span id="m_result"></span>
+        </div>
+    </div>
+
+    <div class="result">
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script id="tpl_row" type="text/template">
+    <div class="row"></div>
+</script>
+<script id="tpl_dot" type="text/template">
+    <div class="dot"></div>
+</script>
+<script type="text/javascript">
+
+    // String.prototype.supplant = function (o) {
+    // 	return this.replace(
+    // 		/{([^{}]*)}/g,
+    // 		function (a, b) {
+    // 			var r = o[b];
+    // 			return typeof r === 'string' || typeof r === 'number' ? r : a;
+    // 		}
+    // 	);
+    // };
+
+    $(function(){
+        var $operantA = $('#operandA'),
+            $operantB = $('#operandB'),
+            durationStepMs = 20,
+            currentDurationStepMs = 0
+        var resetDurationStep = function() {
+            currentDurationStepMs = 0
+        }
+        var nextDurationStepMs = function() {
+            return (currentDurationStepMs += durationStepMs) / 1000
+        }
+        var drawDots = function(row, column) {
+            var tplRow = $('#tpl_row').text().trim(),
+                tplDot = $('#tpl_dot').text().trim(),
+                $tplResult = $('.result'),
+                i = 0,
+                j = 0,
+                rowContent = '',
+                $row,
+                $dot
+
+            // clear
+            $tplResult.empty()
+            // reset
+            resetDurationStep()
+
+            for(;i<row;i++){
+                j = 0
+                $row = $(tplRow)
+                for(;j<column;j++){
+                    $dot = $(tplDot)
+                    $dot.css('animation-duration',  nextDurationStepMs() + 's')
+                    $row.append($dot)
+                }
+                $tplResult.append($row)
+            }
+        }
+        var getOperand = function($operand) {
+            return parseInt($operand.val(), 10) || 0
+        }
+        var update = function() {
+            var a = getOperand($operantA),
+                b = getOperand($operantB)
+            $('#m_result').text(a*b)
+            drawDots(a, b)
+        }
+
+
+        // init process
+        $operantA = $('#operandA')
+        $operantB = $('#operandB')
+        $operantA.change(function(){
+            update()
+        })
+        $operantB.change(function(){
+            update()
+        })
+        update()
+    })
+</script>
+</body>
+</html>
