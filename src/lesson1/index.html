@@ -58,6 +58,9 @@
             animation-name: show;
             animation-timing-function: linear;
         }
+        .result .blue {
+            background-color: blue;
+        }
         /* animation */
         @keyframes show {
             from {
@@ -93,19 +96,19 @@
     <div class="row"></div>
 </script>
 <script id="tpl_dot" type="text/template">
-    <div class="dot"></div>
+    <div class="dot {optStyle}"></div>
 </script>
 <script type="text/javascript">
 
-    // String.prototype.supplant = function (o) {
-    // 	return this.replace(
-    // 		/{([^{}]*)}/g,
-    // 		function (a, b) {
-    // 			var r = o[b];
-    // 			return typeof r === 'string' || typeof r === 'number' ? r : a;
-    // 		}
-    // 	);
-    // };
+    String.prototype.supplant = function (o) {
+    	return this.replace(
+    		/{([^{}]*)}/g,
+    		function (a, b) {
+    			var r = o[b];
+    			return typeof r === 'string' || typeof r === 'number' ? r : a;
+    		}
+    	);
+    };
 
     $(function(){
         var $operantA = $('#operandA'),
@@ -118,13 +121,15 @@
         var nextDurationStepMs = function() {
             return (currentDurationStepMs += durationStepMs) / 1000
         }
+        var isBlue = function () {
+            return Math.floor(Math.random() * 2) === 1
+        }
         var drawDots = function(row, column) {
             var tplRow = $('#tpl_row').text().trim(),
                 tplDot = $('#tpl_dot').text().trim(),
                 $tplResult = $('.result'),
                 i = 0,
                 j = 0,
-                rowContent = '',
                 $row,
                 $dot
 
@@ -137,7 +142,9 @@
                 j = 0
                 $row = $(tplRow)
                 for(;j<column;j++){
-                    $dot = $(tplDot)
+                    $dot = $(tplDot.supplant({
+                        optStyle: isBlue() ? 'blue' : ''
+                    }))
                     $dot.css('animation-duration',  nextDurationStepMs() + 's')
                     $row.append($dot)
                 }
