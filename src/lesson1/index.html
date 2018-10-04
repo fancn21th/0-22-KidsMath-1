@@ -74,6 +74,14 @@
       background-color: blue;
     }
 
+    .result .yellow {
+      background-color: yellow;
+    }
+
+    .result .green {
+      background-color: green;
+    }
+
     /* animation */
     @keyframes show {
       from {
@@ -137,8 +145,20 @@
     var nextDurationStepMs = function () {
       return (currentDurationStepMs += durationStepMs) / 1000
     }
-    var isBlue = function () {
-      return random(0, 1) === 1
+    var randomStyle = function() {
+      var number = random(1, 4)
+      switch (number) {
+        case 1:
+          return ''
+        case 2:
+          return 'yellow'
+        case 3:
+          return 'blue'
+        case 4:
+          return 'green'
+        default:
+          return ''
+      }
     }
     var drawDots = function (row, column) {
       var tplRow = $('#tpl_row').text().trim(),
@@ -160,7 +180,7 @@
         rowContent = ''
         for (; j < column; j++) {
           rowContent += tplDot.supplant({
-            dotStyle: isBlue() ? 'blue' : '',
+            dotStyle: randomStyle(),
             dotDuration: nextDurationStepMs()
           })
         }
