@@ -111,6 +111,9 @@
     };
 
     $(function(){
+        var random  = function (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min
+        }
         var $operantA = $('#operandA'),
             $operantB = $('#operandB'),
             durationStepMs = 20,
@@ -154,24 +157,29 @@
         var getOperand = function($operand) {
             return parseInt($operand.val(), 10) || 0
         }
-        var update = function() {
-            var a = getOperand($operantA),
-                b = getOperand($operantB)
-            $('#m_result').text(a*b)
+        var update = function(a, b) {
+            $('#m_result').text(a * b)
             drawDots(a, b)
         }
-
-
+        var onChange = function() {
+            var a = getOperand($operantA),
+                b = getOperand($operantB)
+            update(a, b)
+        }
+        var updateWithRandomNum = function(){
+            var a = random(1, 20),
+                b = random(1, 20)
+            $operantA.val(a)
+            $operantB.val(b)
+            update(a, b)
+        }
         // init process
         $operantA = $('#operandA')
         $operantB = $('#operandB')
-        $operantA.change(function(){
-            update()
-        })
-        $operantB.change(function(){
-            update()
-        })
-        update()
+        $operantA.change(onChange)
+        $operantB.change(onChange)
+        setInterval(updateWithRandomNum, 5000)
+        updateWithRandomNum()
     })
 </script>
 </body>
