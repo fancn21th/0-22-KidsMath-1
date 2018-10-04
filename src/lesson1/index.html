@@ -93,10 +93,10 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script id="tpl_row" type="text/template">
-    <div class="row"></div>
+    <div class="row">{rowContent}</div>
 </script>
 <script id="tpl_dot" type="text/template">
-    <div class="dot {optStyle}"></div>
+    <div class="dot {dotStyle}" style="animation-duration:{dotDuration}s;"></div>
 </script>
 <script type="text/javascript">
 
@@ -125,7 +125,7 @@
             return (currentDurationStepMs += durationStepMs) / 1000
         }
         var isBlue = function () {
-            return Math.floor(Math.random() * 2) === 1
+            return random(0, 1) === 1
         }
         var drawDots = function(row, column) {
             var tplRow = $('#tpl_row').text().trim(),
@@ -133,8 +133,8 @@
                 $tplResult = $('.result'),
                 i = 0,
                 j = 0,
-                $row,
-                $dot
+                rowContent = '',
+                content = ''
 
             // clear
             $tplResult.empty()
@@ -143,16 +143,21 @@
 
             for(;i<row;i++){
                 j = 0
-                $row = $(tplRow)
+                // reset row content
+                rowContent = ''
                 for(;j<column;j++){
-                    $dot = $(tplDot.supplant({
-                        optStyle: isBlue() ? 'blue' : ''
-                    }))
-                    $dot.css('animation-duration',  nextDurationStepMs() + 's')
-                    $row.append($dot)
+                    rowContent += tplDot.supplant({
+                        dotStyle: isBlue() ? 'blue' : '',
+                        dotDuration: nextDurationStepMs()
+                    })
                 }
-                $tplResult.append($row)
+                content += tplRow.supplant({
+                    rowContent: rowContent
+                })
             }
+
+            // append the content
+            $tplResult.append(content)
         }
         var getOperand = function($operand) {
             return parseInt($operand.val(), 10) || 0
@@ -173,13 +178,15 @@
             $operantB.val(b)
             update(a, b)
         }
-        // init process
-        $operantA = $('#operandA')
-        $operantB = $('#operandB')
-        $operantA.change(onChange)
-        $operantB.change(onChange)
-        setInterval(updateWithRandomNum, 5000)
-        updateWithRandomNum()
+        var init = function() {
+            $operantA = $('#operandA')
+            $operantB = $('#operandB')
+            $operantA.change(onChange)
+            $operantB.change(onChange)
+            setInterval(updateWithRandomNum, 5000)
+            updateWithRandomNum()
+        }
+        init()
     })
 </script>
 </body>
