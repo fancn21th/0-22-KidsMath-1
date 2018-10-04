@@ -66,6 +66,8 @@
       margin-right: 10px;
       animation-name: show;
       animation-timing-function: linear;
+      animation-duration: 1s;
+      animation-fill-mode: backwards;
     }
 
     .result .blue {
@@ -107,7 +109,7 @@
   <div class="row">{rowContent}</div>
 </script>
 <script id="tpl_dot" type="text/template">
-  <div class="dot {dotStyle}" style="animation-duration:{dotDuration}s;"></div>
+  <div class="dot {dotStyle}" style="animation-delay:{dotDuration}s;"></div>
 </script>
 <script type="text/javascript">
 
