@@ -111,13 +111,13 @@
     };
 
     $(function(){
-        var random  = function (min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min
-        }
         var $operantA = $('#operandA'),
             $operantB = $('#operandB'),
             durationStepMs = 20,
             currentDurationStepMs = 0
+        var random  = function (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min
+        }
         var resetDurationStep = function() {
             currentDurationStepMs = 0
         }
