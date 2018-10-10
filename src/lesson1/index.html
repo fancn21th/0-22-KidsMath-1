@@ -145,6 +145,14 @@
     var nextDurationStepMs = function () {
       return (currentDurationStepMs += durationStepMs) / 1000
     }
+    var styleByRow = function(i) {
+      if(i >= 10) return 'green'
+      return ''
+    }
+    var styleByColumn = function(i) {
+      if(i >= 30) return 'green'
+      return ''
+    }
     var randomStyle = function() {
       var number = random(1, 4)
       switch (number) {
@@ -180,7 +188,7 @@
         rowContent = ''
         for (; j < column; j++) {
           rowContent += tplDot.supplant({
-            dotStyle: randomStyle(),
+            dotStyle: styleByRow(i),
             dotDuration: nextDurationStepMs()
           })
         }
@@ -216,7 +224,7 @@
       $operantB = $('#operandB')
       $operantA.change(onChange)
       $operantB.change(onChange)
-      setInterval(updateWithRandomNum, 5000)
+      // setInterval(updateWithRandomNum, 5000)
       updateWithRandomNum()
     }
     init()
