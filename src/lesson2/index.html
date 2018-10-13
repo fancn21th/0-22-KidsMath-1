@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Math In HTML</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<header>
+  <h4>Math In HTML</h4>
+  <span>Lesson 2</span>
+</header>
+<div class="playground">
+  <div class="formula">
+    <div class="multiplication">
+      <h4>公式:</h4>
+      <input type="text" name="" id="operandA" value="10">
+      <span>X</span>
+      <input type="text" name="" id="operandB" value="10">
+      <span>=</span>
+      <span id="m_result"></span>
+    </div>
+  </div>
+
+  <div class="result">
+  </div>
+</div>
+<!-- JQUERY -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Tempaltes -->
+<script id="tpl_row" type="text/template">
+  <div class="row">{rowContent}</div>
+</script>
+<script id="tpl_dot" type="text/template">
+  <div class="dot {dotStyle}" style="animation-delay:{dotDuration}s;"></div>
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>

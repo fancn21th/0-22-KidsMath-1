@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  display: inline-block;
+}
+
+header {
+  line-height: 48px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+header span {
+  font-size: 16px;
+  display: block;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+/* formula */
+.formula .multiplication {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.formula .multiplication input {
+  width: 50px;
+  border-bottom: 1px solid #e2e2e2;
+  text-align: center;
+  font-size: 24px;
+}
+
+.formula .multiplication span {
+  width: 50px;
+  text-align: center;
+  font-size: 24px;
+}
+
+#m_result {
+  margin-left: 5px;
+}
+
+/* result */
+.result .row {
+  display: block;
+  text-align: center;
+}
+
+.result .dot {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: red;
+  margin-right: 10px;
+  animation-name: show;
+  animation-timing-function: linear;
+  animation-duration: 1s;
+  animation-fill-mode: backwards;
+}
+
+.result .blue {
+  background-color: blue;
+}
+
+.result .yellow {
+  background-color: yellow;
+}
+
+.result .green {
+  background-color: green;
+}
+
+/* animation */
+@keyframes show {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}
